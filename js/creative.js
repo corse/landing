@@ -42,6 +42,24 @@
         }
     })
 
+    $('form#formSubEmail').submit(function(event) {
+      event.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: 'https://api.mailgun.net/v3/lists/launch_subscription@corse.im/members',
+        data: { address: $('input#subEmail').val() },
+        headers: { Authorization: 'Basic api:key-33ec10b967ab94cb011b8d3874e9b98d'},
+        dataType: 'json',
+        success: function(resp) {
+          $('form#formSubEmail').html('<div class="alert alert-success" role="alert">Thank you for your interest.</div>');
+        },
+        error: function(err) {
+          console.log('er', err);
+        }
+      });
+    })
+
+
     // Initialize WOW.js Scrolling Animations
     new WOW().init();
 
